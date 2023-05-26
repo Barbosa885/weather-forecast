@@ -1,4 +1,5 @@
 import React from "react";
+import { BsArrowDown, BsArrowUp } from "react-icons/bs";
 
 export function WeatherCard(props) {
   return (
@@ -6,17 +7,20 @@ export function WeatherCard(props) {
       <p>{props.city}</p>
       <h1 className="text-5xl font-bold">{props.temp}</h1>
       <div className="inline-grid grid-cols-2 gap-4">
-        <p>
-          {props.min} {props.max}
+        <div className="flex items-center justify-center">
+          <BsArrowUp className="text-orange-600" />
+          <p>{props.min}°</p>
+          <BsArrowDown className="text-orange-600" />
+          <p>{props.max}°</p>
+        </div>
+        <p className="font-light">
+          Sensação <span className="font-normal">{props.sensation}°C</span>
         </p>
         <p className="font-light">
-          Sensação <span className="font-normal">{props.sensation}</span>
+          Vento <span className="font-normal">{props.wind}m/s</span>
         </p>
         <p className="font-light">
-          Vento <span className="font-normal">{props.wind}</span>
-        </p>
-        <p className="font-light">
-          Humidade <span className="font-normal">{props.humidity}</span>
+          Humidade <span className="font-normal">{props.humidity}%</span>
         </p>
       </div>
       <div className="pt-2 border-t-2 border-orange-400">

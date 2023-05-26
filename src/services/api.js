@@ -1,8 +1,7 @@
-import axios from "axios"
+import axios from "axios";
 
 const api = axios.create({
-  baseURL:
-    "https://api.tomorrow.io/v4",
+  baseURL: "https://api.openweathermap.org/data/2.5",
 });
 
 export default api;
