@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import api from "./services/api";
 
 // Components
@@ -29,32 +29,51 @@ export default function App() {
     }
   };
 
+  const handleTemp = (temp) => {
+    const hot = temp >= 25;
+    const cold = temp <= 15;
+    const warm = !hot && !cold;
+    if (hot) {
+      return + temp + "°C " + "🥵";
+    }
+    if (cold) {
+      return temp + "°C " + "🥶";
+    }
+    if (warm) {
+      return  temp + "°C " + "😎";
+    }
+  }
+
   return (
-    <main className="flex flex-col justify-center items-center h-screen bg-gradient-to-b from-orange-500 to-yellow-300">
-      <div className="space-y-12">
+      <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-b from-orange-500 to-yellow-300 space-y-8">
         <h1 className="font-mono font-bold text-5xl text-white">
           Previsão do tempo
         </h1>
-        <WeatherCard
-          city={weatherForecast?.name}
-          temp={`${weatherForecast?.main.temp}°C ${weatherForecast?.weather[0].description}`}
-          min={weatherForecast?.main.temp_min}
-          max={weatherForecast?.main.temp_max}
-          sensation={weatherForecast?.main.feels_like}
-          wind={weatherForecast?.wind.speed}
-          humidity={weatherForecast?.main.humidity}
-        />
-        <SearchBar
-          id="search"
-          className="border rounded-md pl-4 pr-3 py-2 w-full focus:outline-none"
-          placeholder="Insira aqui o nome da cidade"
-          value={location}
-          onChange={handleChange}
-          onKeyPress={handleSearch}
-          label="Pesquisar"
-        />
-        <hr />
+          <WeatherCard
+            city={weatherForecast?.name}
+            temp={handleTemp(weatherForecast?.main.temp)}
+            min={weatherForecast?.main.temp_min}
+            max={weatherForecast?.main.temp_max}
+            sensation={weatherForecast?.main.feels_like}
+            wind={weatherForecast?.wind.speed}
+            humidity={weatherForecast?.main.humidity}
+          />
+        <div>
+          <SearchBar
+            id="search"
+            className="border rounded-md pl-4 pr-3 py-2 w-full focus:outline-none"
+            placeholder="Pesquisar..."
+            value={location}
+            onChange={handleChange}
+            onKeyPress={handleSearch}
+            label="Pesquisar"
+          />
+          <div>
+            <p className="text-white text-sm font-semibold">
+              Resultado das pesquisas...
+            </p>
+          </div>
+        </div>
       </div>
-    </main>
   );
 }
