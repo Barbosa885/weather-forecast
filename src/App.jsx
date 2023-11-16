@@ -30,8 +30,8 @@ export default function App() {
   };
 
   const handleTemp = (temp) => {
-    const hot = temp >= 25;
-    const cold = temp <= 15;
+    const hot = temp > 25;
+    const cold = temp < 15;
     const warm = !hot && !cold;
     if (hot) {
       return + temp + "°C " + "🥵";
@@ -45,7 +45,16 @@ export default function App() {
   }
 
   return (
-      <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-b from-orange-500 to-yellow-300 space-y-8">
+      <div 
+        className={ `flex flex-col justify-center items-center h-screen space-y-8 
+          ${weatherForecast && 
+            (weatherForecast?.main.temp > 25 
+            ? "bg-gradient-to-b from-hot to-warm transition-all duration-500 ease-in-out" 
+            : weatherForecast?.main.temp < 15
+            ? "bg-gradient-to-b from-cold to-blue-100 transition-all duration-500 ease-in-out"
+            : "bg-gradient-to-b from-warm to-yellow-500 transition-all duration-500 ease-in-out"
+          )}`}
+      >
         <h1 className="font-mono font-bold text-5xl text-white">
           Previsão do tempo
         </h1>
