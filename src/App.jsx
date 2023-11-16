@@ -10,24 +10,47 @@ export default function App() {
   const apiKey = import.meta.env.VITE_API_KEY;
   const [location, setLocation] = useState("");
   const [weatherForecast, setWeatherForecast] = useState(null);
+  const [suggestions, setSuggetions] = useState([]);
 
   const handleChange = (event) => {
     setLocation(event.target.value);
   };
 
   const handleSearch = (event) => {
+    const query = event.target.value;
+
+    setLocation(query);
+
+    if (query.length >= 1) {
+      api
+        .get(`/find?q=${query}&appid=${apiKey}&lang=pt_br&units=metric`)
+        .then((response) => {
+          setSuggetions(response.data.list);
+          console.log(response.data.list);
+        })
+        .catch((err) => {
+          console.log(err);
+          setSuggetions([]);
+        });
+    } else {
+      setSuggetions([]);
+    }
+
     if (event.key === "Enter") {
       api
         .get(`/weather?q=${location}&appid=${apiKey}&lang=pt_br&units=metric`)
         .then((response) => {
           setWeatherForecast(response.data);
+          setSearchResults([response.data]);
           console.log(response.data);
         })
         .catch((err) => {
           console.log(err);
+          setSearchResults([]);
         });
     }
   };
+
 
   return (
       <div 
@@ -55,25 +78,23 @@ export default function App() {
             humidity={weatherForecast?.main.humidity}
           />
         )}         
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center w-1/2">
           <SearchBar
             id="search"
-            className="border rounded-md pl-4 pr-3 py-2 focus:outline-none"
-            placeholder="Pesquisar..."
+            className="border rounded-md pl-4 pr-3 py-2 focus:outline-none w-full" 
+            placeholder="Digite o nome da cidade..."
             value={location}
             onChange={handleChange}
             onKeyPress={handleSearch}
             label="Pesquisar"
           />
         </div>
-        <div>
-          {location && (
-          <div className="pt-4">
-            <p className="text-white text-xs font-medium">
-              Resultado das pesquisas...
-            </p>
+        <div className="suggestions">
+          {suggestions.map((suggestion) => (
+          <div key={suggestion.id} onClick={() => handleSuggestionClick(suggestion)}>
+            {suggestion.name}
           </div>
-          )}
+          ))}
         </div>
       </div>
   );
