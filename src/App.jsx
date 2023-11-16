@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "./services/api";
+import confetti from "js-confetti";
 
 // Components
 import { SearchBar } from "./components/SearchBar";
@@ -7,7 +8,6 @@ import { WeatherCard } from "./components/WeatherCard";
 
 export default function App() {
   const apiKey = import.meta.env.VITE_API_KEY;
-
   const [location, setLocation] = useState("");
   const [weatherForecast, setWeatherForecast] = useState(null);
 
@@ -29,26 +29,15 @@ export default function App() {
     }
   };
 
-  const determineEmoji = () => {
-    switch (true) {
-      case temp > 25:
-        return "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Hot%20Face.png"
-      case temp < 15:
-        return "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Cold%20Face.png"
-      default:
-        return "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Smiling%20Face%20with%20Sunglasses.png"
-    }
-  }
-
   return (
       <div 
         className={ `flex flex-col justify-center items-center h-screen space-y-8 bg-purple-500
           ${weatherForecast && 
             (weatherForecast?.main.temp > 25 
-            ? "bg-hot transition duration-500 ease-in-out" 
+            ? `bg-hot transition duration-500 ease-in-out` 
             : weatherForecast?.main.temp < 15
-            ? "bg-cold transition duration-500 ease-in-out"
-            : "bg-warm transition duration-500 ease-in-out"
+            ? `bg-cold transition duration-500 ease-in-out` 
+            : `bg-warm transition duration-500 ease-in-out`
           )}`}
       >
         <h1 className="flex font-mono font-bold text-5xl text-white align-center justify-center">
@@ -65,18 +54,19 @@ export default function App() {
             wind={weatherForecast?.wind.speed}
             humidity={weatherForecast?.main.humidity}
           />
-          
         )}         
-        <div>
+        <div className="flex items-center justify-center">
           <SearchBar
             id="search"
-            className="border rounded-md pl-4 pr-3 py-2 w-full focus:outline-none"
+            className="border rounded-md pl-4 pr-3 py-2 focus:outline-none"
             placeholder="Pesquisar..."
             value={location}
             onChange={handleChange}
             onKeyPress={handleSearch}
             label="Pesquisar"
           />
+        </div>
+        <div>
           {location && (
           <div className="pt-4">
             <p className="text-white text-xs font-medium">
