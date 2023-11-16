@@ -29,44 +29,44 @@ export default function App() {
     }
   };
 
-  const handleTemp = (temp) => {
-    const hot = temp > 25;
-    const cold = temp < 15;
-    const warm = !hot && !cold;
-    if (hot) {
-      return + temp + "°C " + "🥵";
-    }
-    if (cold) {
-      return temp + "°C " + "🥶";
-    }
-    if (warm) {
-      return  temp + "°C " + "😎";
+  const determineEmoji = () => {
+    switch (true) {
+      case temp > 25:
+        return "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Hot%20Face.png"
+      case temp < 15:
+        return "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Cold%20Face.png"
+      default:
+        return "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Smiling%20Face%20with%20Sunglasses.png"
     }
   }
 
   return (
       <div 
-        className={ `flex flex-col justify-center items-center h-screen space-y-8 
+        className={ `flex flex-col justify-center items-center h-screen space-y-8 bg-purple-500
           ${weatherForecast && 
             (weatherForecast?.main.temp > 25 
-            ? "bg-gradient-to-b from-hot to-warm transition-all duration-500 ease-in-out" 
+            ? "bg-hot transition duration-500 ease-in-out" 
             : weatherForecast?.main.temp < 15
-            ? "bg-gradient-to-b from-cold to-blue-100 transition-all duration-500 ease-in-out"
-            : "bg-gradient-to-b from-warm to-yellow-500 transition-all duration-500 ease-in-out"
+            ? "bg-cold transition duration-500 ease-in-out"
+            : "bg-warm transition duration-500 ease-in-out"
           )}`}
       >
-        <h1 className="font-mono font-bold text-5xl text-white">
-          Previsão do tempo
+        <h1 className="flex font-mono font-bold text-5xl text-white align-center justify-center">
+          Weather App 
+          <img className="ml-4" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Sun%20Behind%20Cloud.png" alt="Sun Behind Cloud" width="60" height="60"/>
         </h1>
+        {weatherForecast && (  
           <WeatherCard
             city={weatherForecast?.name}
-            temp={handleTemp(weatherForecast?.main.temp)}
+            temp={weatherForecast?.main.temp}
             min={weatherForecast?.main.temp_min}
             max={weatherForecast?.main.temp_max}
             sensation={weatherForecast?.main.feels_like}
             wind={weatherForecast?.wind.speed}
             humidity={weatherForecast?.main.humidity}
           />
+          
+        )}         
         <div>
           <SearchBar
             id="search"
@@ -77,11 +77,13 @@ export default function App() {
             onKeyPress={handleSearch}
             label="Pesquisar"
           />
-          <div>
-            <p className="text-white text-sm font-semibold">
+          {location && (
+          <div className="pt-4">
+            <p className="text-white text-xs font-medium">
               Resultado das pesquisas...
             </p>
           </div>
+          )}
         </div>
       </div>
   );
