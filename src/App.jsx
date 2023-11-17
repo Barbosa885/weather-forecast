@@ -69,7 +69,7 @@ export default function App() {
 
   return (
       <div 
-        className={ `flex flex-col justify-center items-center h-screen space-y-8
+        className={ `flex flex-col justify-center items-center h-screen space-y-8 font-lexend
           ${weatherForecast && 
             (weatherForecast?.main.temp > 25 
             ? "bg-red-500 transition duration-500 ease-in-out" 
@@ -80,7 +80,7 @@ export default function App() {
       >
         <ToastContainer />
         <div className="space-y-8">
-          <h1 className="flex font-mono font-bold text-5xl text-white align-center justify-center">
+          <h1 className="flex font-bold text-5xl text-white align-center justify-center">
             Weather App 
             <img className="ml-4" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Sun%20Behind%20Cloud.png" alt="Sun Behind Cloud" width="60" height="60"/>
           </h1>
