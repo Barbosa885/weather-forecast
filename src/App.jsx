@@ -39,7 +39,7 @@ export default function App() {
     //   setSuggetions([]);
     // }
 
-    if (event.key === "Enter") {
+    if (event.key === "Enter" || event.type === "click") {
       await api
             .get(`/weather?q=${location}&appid=${apiKey}&lang=pt_br&units=metric`)
             .then((response) => {
@@ -52,19 +52,19 @@ export default function App() {
     }
   };
 
-   useEffect(() => {
-    // Check if the current location is available and update the state accordingly
-    if (currentLocation.loaded && currentLocation.coordinates) {
-       api
-          .get(`/weather?lat=${currentLocation.coordinates.lat}&lon=${currentLocation.coordinates.long}&appid=${apiKey}&lang=pt_br&units=metric`)
-          .then((response) => {
-            setWeatherForecast(response.data);
-          })
-          .catch((err) => {
-            console.log(err);
-            toast.error(`${location} não encontrado(a)`, { position: toast.POSITION.TOP_CENTER });
-          });
-    }
+  useEffect(() => {
+  // Check if the current location is available and update the state accordingly
+  if (currentLocation.loaded && currentLocation.coordinates) {
+      api
+        .get(`/weather?lat=${currentLocation.coordinates.lat}&lon=${currentLocation.coordinates.long}&appid=${apiKey}&lang=pt_br&units=metric`)
+        .then((response) => {
+          setWeatherForecast(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Local não encontrado(a)", { position: toast.POSITION.TOP_CENTER });
+        });
+  }
   }, [currentLocation]);
 
   return (
@@ -102,6 +102,7 @@ export default function App() {
             value={location}
             onChange={handleChange}
             onKeyPress={handleSearch}
+            onClick={handleSearch}
             label="Pesquisar"
           />
         </div>
