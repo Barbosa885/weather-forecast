@@ -6,12 +6,13 @@ import "react-toastify/dist/ReactToastify.css";
 // Components
 import { SearchBar } from "./components/SearchBar";
 import { WeatherCard } from "./components/WeatherCard";
+import { useGeolocation } from "./hooks/useGeolocation";
 
 export default function App() {
   const apiKey = import.meta.env.VITE_API_KEY;
   const [location, setLocation] = useState("");
   const [weatherForecast, setWeatherForecast] = useState(null);
-  const [suggestions, setSuggetions] = useState([]);
+  const currentLocation = useGeolocation();
 
   const handleChange = (event) => {
     setLocation(event.target.value);
@@ -51,6 +52,20 @@ export default function App() {
     }
   };
 
+   useEffect(() => {
+    // Check if the current location is available and update the state accordingly
+    if (currentLocation.loaded && currentLocation.coordinates) {
+       api
+          .get(`/weather?lat=${currentLocation.coordinates.lat}&lon=${currentLocation.coordinates.long}&appid=${apiKey}&lang=pt_br&units=metric`)
+          .then((response) => {
+            setWeatherForecast(response.data);
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error(`${location} não encontrado(a)`, { position: toast.POSITION.TOP_CENTER });
+          });
+    }
+  }, [currentLocation]);
 
   return (
       <div 
@@ -89,13 +104,6 @@ export default function App() {
             onKeyPress={handleSearch}
             label="Pesquisar"
           />
-        </div>
-        <div className="suggestions">
-          {suggestions.map((suggestion) => (
-          <div key={suggestion.id} onClick={() => handleSuggestionClick(suggestion)}>
-            {suggestion.name}
-          </div>
-          ))}
         </div>
       </div>
   );
