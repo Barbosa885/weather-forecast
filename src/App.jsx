@@ -69,14 +69,14 @@ export default function App() {
 
   return (
       <div 
-        className={ `flex flex-col justify-center items-center h-screen space-y-8 bg-purple-500
+        className={ `flex flex-col justify-center items-center h-screen space-y-8
           ${weatherForecast && 
             (weatherForecast?.main.temp > 25 
             ? "bg-red-500 transition duration-500 ease-in-out" 
             : weatherForecast?.main.temp < 15
-            ? "bg-blue-500 transition duration-500 ease-in-out" 
-            : "bg-orange-500 transition duration-500 ease-in-out"
-          )}`}
+              ? "bg-blue-500 transition duration-500 ease-in-out" 
+              : "bg-orange-500 transition duration-500 ease-in-out" ) || "bg-purple-500 transition duration-500 ease-in-out" }`
+            }
       >
         <ToastContainer />
         <div className="space-y-8">
