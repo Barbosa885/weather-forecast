@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "./services/api";
-import confetti from "js-confetti";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 // Components
 import { SearchBar } from "./components/SearchBar";
@@ -16,38 +17,37 @@ export default function App() {
     setLocation(event.target.value);
   };
 
-  const handleSearch = (event) => {
-    const query = event.target.value;
+  async function handleSearch(event){
+    // const query = event.target.value;
 
-    setLocation(query);
+    // setLocation(query)
 
-    if (query.length >= 1) {
-      api
-        .get(`/find?q=${query}&appid=${apiKey}&lang=pt_br&units=metric`)
-        .then((response) => {
-          setSuggetions(response.data.list);
-          console.log(response.data.list);
-        })
-        .catch((err) => {
-          console.log(err);
-          setSuggetions([]);
-        });
-    } else {
-      setSuggetions([]);
-    }
+    // if (query.length >= 1) {
+    //   api
+    //     .get(`/find?q=${query}&appid=${apiKey}&lang=pt_br&units=metric`)
+    //     .then((response) => {
+    //       setSuggetions(response.data.list);
+    //       console.log(response.data.list);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       toast.err(`${query} não encontrado`, { position: toast.POSITION.TOP_CENTER });
+    //       setSuggetions([]);
+    //     });
+    // } else {
+    //   setSuggetions([]);
+    // }
 
     if (event.key === "Enter") {
-      api
-        .get(`/weather?q=${location}&appid=${apiKey}&lang=pt_br&units=metric`)
-        .then((response) => {
-          setWeatherForecast(response.data);
-          setSearchResults([response.data]);
-          console.log(response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-          setSearchResults([]);
-        });
+      await api
+            .get(`/weather?q=${location}&appid=${apiKey}&lang=pt_br&units=metric`)
+            .then((response) => {
+              setWeatherForecast(response.data);
+            })
+            .catch((err) => {
+              console.log(err);
+              toast.error("Nada encontrado", { position: toast.POSITION.TOP_CENTER });
+            });
     }
   };
 
@@ -57,12 +57,13 @@ export default function App() {
         className={ `flex flex-col justify-center items-center h-screen space-y-8 bg-purple-500
           ${weatherForecast && 
             (weatherForecast?.main.temp > 25 
-            ? `bg-hot transition duration-500 ease-in-out` 
+            ? "bg-red-500 transition duration-500 ease-in-out" 
             : weatherForecast?.main.temp < 15
-            ? `bg-cold transition duration-500 ease-in-out` 
-            : `bg-warm transition duration-500 ease-in-out`
+            ? "bg-blue-500 transition duration-500 ease-in-out" 
+            : "bg-orange-500 transition duration-500 ease-in-out"
           )}`}
       >
+        <ToastContainer />
         <h1 className="flex font-mono font-bold text-5xl text-white align-center justify-center">
           Weather App 
           <img className="ml-4" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Sun%20Behind%20Cloud.png" alt="Sun Behind Cloud" width="60" height="60"/>

@@ -39,28 +39,6 @@ export function WeatherCard(props) {
         </p>
       </div>
       <div className="pt-2 border-t-2 border-orange-400">
-        <div className="flex space-x-8">
-          <div>
-            <h1 className="font-medium">Seg</h1>
-            <h1 className="text-orange-600">16 15</h1>
-          </div>
-          <div>
-            <h1 className="font-medium">Ter</h1>
-            <h1 className="text-orange-600">16 15</h1>
-          </div>
-          <div>
-            <h1 className="font-medium">Qua</h1>
-            <h1 className="text-orange-600">16 15</h1>
-          </div>
-          <div>
-            <h1 className="font-medium">Qui</h1>
-            <h1 className="text-orange-600">16 15</h1>
-          </div>
-          <div>
-            <h1 className="font-medium">Sex</h1>
-            <h1 className="text-orange-600">16 15</h1>
-          </div>
-        </div>
       </div>
     </div>
   );
