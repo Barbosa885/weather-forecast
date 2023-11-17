@@ -46,7 +46,7 @@ export default function App() {
             })
             .catch((err) => {
               console.log(err);
-              toast.error("Nada encontrado", { position: toast.POSITION.TOP_CENTER });
+              toast.error(`${location} não encontrado(a)`, { position: toast.POSITION.TOP_CENTER });
             });
     }
   };
@@ -64,22 +64,22 @@ export default function App() {
           )}`}
       >
         <ToastContainer />
-        <h1 className="flex font-mono font-bold text-5xl text-white align-center justify-center">
-          Weather App 
-          <img className="ml-4" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Sun%20Behind%20Cloud.png" alt="Sun Behind Cloud" width="60" height="60"/>
-        </h1>
-        {weatherForecast && (  
-          <WeatherCard
-            city={weatherForecast?.name}
-            temp={weatherForecast?.main.temp}
-            min={weatherForecast?.main.temp_min}
-            max={weatherForecast?.main.temp_max}
-            sensation={weatherForecast?.main.feels_like}
-            wind={weatherForecast?.wind.speed}
-            humidity={weatherForecast?.main.humidity}
-          />
-        )}         
-        <div className="flex items-center justify-center w-1/2">
+        <div className="space-y-8">
+          <h1 className="flex font-mono font-bold text-5xl text-white align-center justify-center">
+            Weather App 
+            <img className="ml-4" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Sun%20Behind%20Cloud.png" alt="Sun Behind Cloud" width="60" height="60"/>
+          </h1>
+          {weatherForecast && (  
+            <WeatherCard
+              city={weatherForecast?.name}
+              temp={weatherForecast?.main.temp}
+              min={weatherForecast?.main.temp_min}
+              max={weatherForecast?.main.temp_max}
+              sensation={weatherForecast?.main.feels_like}
+              wind={weatherForecast?.wind.speed}
+              humidity={weatherForecast?.main.humidity}
+            />
+          )}         
           <SearchBar
             id="search"
             className="border rounded-md pl-4 pr-3 py-2 focus:outline-none w-full" 
