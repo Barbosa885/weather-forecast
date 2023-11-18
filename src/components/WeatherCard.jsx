@@ -16,7 +16,10 @@ export function WeatherCard(props) {
 
   return (
     <div className="bg-orange-50 p-4 rounded-lg shadow-md space-y-4 flex flex-col items-center">
-      <p>{props.city}</p>
+      <p className="flex space-x-2">
+        <span>{props.city}</span>
+        <img src={`https://countryflagsapi.netlify.app/flag/${props.flag}.svg`} className="max-w-[20px]"/>
+      </p>
       <h1 className="flex text-6xl font-bold items-center">
         {props.temp}°C 
         <img src={determineEmoji()} alt="Emoji" className="w-16 h-16 ml-4"/>

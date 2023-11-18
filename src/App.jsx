@@ -10,7 +10,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { FaGithub } from "react-icons/fa";
 
 export default function App() {
-  const apiKey = import.meta.env.VITE_API_KEY;
+  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
   const [location, setLocation] = useState("");
   const [weatherForecast, setWeatherForecast] = useState(null);
   const currentLocation = useGeolocation();
@@ -45,10 +45,11 @@ export default function App() {
             .get(`/weather?q=${location}&appid=${apiKey}&lang=pt_br&units=metric`)
             .then((response) => {
               setWeatherForecast(response.data);
+              console.log(response.data)
             })
             .catch((err) => {
               console.log(err);
-              toast.error(`${location} não encontrado(a)`, { position: toast.POSITION.TOP_CENTER });
+              toast.error("Local não encontrado(a)", { position: toast.POSITION.TOP_CENTER });
             });
     }
   };
@@ -88,6 +89,7 @@ export default function App() {
           {weatherForecast && (  
             <WeatherCard
               city={weatherForecast?.name}
+              flag={weatherForecast?.sys.country}
               temp={weatherForecast?.main.temp}
               min={weatherForecast?.main.temp_min}
               max={weatherForecast?.main.temp_max}
@@ -103,15 +105,15 @@ export default function App() {
             onClick={handleSearch}
           />
         </div>
-      <footer className="flex absolute bottom-8 text-white font-regular space-x-1 items-center">
-        Feito com
-        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Red%20Heart.png" alt="Red Heart" width="25" height="25" />
-        por
-        <a target="blank" href="https://github.com/barbosa885/weather-forecast" className="flex items-center underline text-black font-bold">
-          <FaGithub/>
-          <span>Barbosa885</span>
-        </a>
-      </footer>
+        <footer className="flex absolute bottom-8 text-white font-regular space-x-1 items-center">
+          Feito com
+          <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Red%20Heart.png" alt="Red Heart" width="25" height="25" />
+          por
+          <a target="blank" href="https://github.com/barbosa885/weather-forecast" className="flex items-center underline text-black font-bold">
+            <FaGithub />
+            <span>Barbosa885</span>
+          </a>
+        </footer>
       </div>
   );
 }
