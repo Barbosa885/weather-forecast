@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { GoSearch } from "react-icons/go";
 
 export function SearchBar({ onClick, ...props }) {
+  const [location, setLocation] = useState("");
+  
+  const handleChange = (event) => {
+    setLocation(event.target.value);
+  };
+
   return (
     <div className="relative w-full">
       <input type="text" {...props} />

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import api from "./services/api";
-import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 // Components
 import { SearchBar } from "./components/SearchBar";
 import { WeatherCard } from "./components/WeatherCard";
 import { useGeolocation } from "./hooks/useGeolocation";
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function App() {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -80,9 +80,9 @@ export default function App() {
       >
         <ToastContainer />
         <div className="space-y-8">
-          <h1 className="flex font-bold text-5xl text-white align-center justify-center">
+          <h1 className="flex font-bold text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-white align-center justify-center">
             Termometro Global
-            <img className="ml-4" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Sun%20Behind%20Cloud.png" alt="Sun Behind Cloud" width="60" height="60"/>
+            <img className="ml-4 w-8 h- sm:w-10 sm:h-10 lg:w-12 lg:h-12" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Sun%20Behind%20Cloud.png" alt="Sun Behind Cloud" width="60" height="60"/>
           </h1>
           {weatherForecast && (  
             <WeatherCard
