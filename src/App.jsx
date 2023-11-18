@@ -7,7 +7,6 @@ import { SearchBar } from "./components/SearchBar";
 import { WeatherCard } from "./components/WeatherCard";
 import { useGeolocation } from "./hooks/useGeolocation";
 import { toast, ToastContainer } from 'react-toastify';
-import { FaGithub } from "react-icons/fa";
 
 export default function App() {
   const apiKey = import.meta.env.VITE_API_KEY;
