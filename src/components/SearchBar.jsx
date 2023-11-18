@@ -10,7 +10,15 @@ export function SearchBar({ onClick, ...props }) {
 
   return (
     <div className="relative w-full">
-      <input type="text" {...props} />
+      <input 
+        id="search"
+        type="text" 
+        placeholder="Digite o nome da cidade..."
+        onChange={handleChange} 
+        value={location} 
+        className="border rounded-md pl-4 pr-3 py-2 focus:outline-none w-full" 
+        {...props}
+      />
       <div className="absolute top-0 right-0 flex items-center h-full px-3">
         <GoSearch onClick={onClick} className="cursor-pointer"/>
       </div>

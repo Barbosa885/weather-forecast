@@ -7,6 +7,7 @@ import { SearchBar } from "./components/SearchBar";
 import { WeatherCard } from "./components/WeatherCard";
 import { useGeolocation } from "./hooks/useGeolocation";
 import { toast, ToastContainer } from 'react-toastify';
+import { FaGithub } from "react-icons/fa";
 
 export default function App() {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -96,16 +97,21 @@ export default function App() {
             />
           )}         
           <SearchBar
-            id="search"
-            className="border rounded-md pl-4 pr-3 py-2 focus:outline-none w-full" 
-            placeholder="Digite o nome da cidade..."
             value={location}
             onChange={handleChange}
             onKeyPress={handleSearch}
             onClick={handleSearch}
-            label="Pesquisar"
           />
         </div>
+      <footer className="flex absolute bottom-8 text-white font-regular space-x-1 items-center">
+        Feito com
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Red%20Heart.png" alt="Red Heart" width="25" height="25" />
+        por
+        <a target="blank" href="https://github.com/barbosa885/weather-forecast" className="flex items-center underline text-black font-bold">
+          <FaGithub/>
+          <span>Barbosa885</span>
+        </a>
+      </footer>
       </div>
   );
 }
