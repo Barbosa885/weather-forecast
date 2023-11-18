@@ -10,7 +10,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { FaGithub } from "react-icons/fa";
 
 export default function App() {
-  const apiKey = import.meta.env.VITE_API_KEY;
+  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
   const [location, setLocation] = useState("");
   const [weatherForecast, setWeatherForecast] = useState(null);
   const currentLocation = useGeolocation();
