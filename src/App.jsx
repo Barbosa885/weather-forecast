@@ -71,7 +71,7 @@ export default function App() {
 
   return (
       <div 
-        className={ `flex flex-col justify-center items-center h-screen font-lexend
+        className={ `flex flex-col justify-center items-center h-screen font-lexend overflow-hidden
           ${weatherForecast && 
             (weatherForecast?.main.temp > 25 
             ? "bg-red-500 transition duration-500 ease-in-out" 
