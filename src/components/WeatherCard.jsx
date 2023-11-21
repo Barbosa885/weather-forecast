@@ -43,6 +43,11 @@ export function WeatherCard(props) {
 
   return (
     <div className="bg-orange-50 p-4 rounded-lg shadow-md space-y-4 flex flex-col items-center">
+      <div style={{ display: 'none' }}>
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Hot%20Face.png" alt="Hot Face"/>
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Cold%20Face.png" alt="Cold Face"/>
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Smiling%20Face%20with%20Sunglasses.png" alt="Smiling Face with Sunglasses"/>
+      </div>
       <p className="flex space-x-2">
         <span>{props.city}</span>
         <img alt={`bandeira ${props.flag}`} src={`https://countryflagsapi.netlify.app/flag/${props.flag}.svg`} className="max-w-[20px]"/>
