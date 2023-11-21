@@ -4,9 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        lexend: 'Lexend',
-        poppins: 'Poppins',
-      }
+        lexend: ['Lexend', 'sans-serif'],
+      },
     },
   },
   plugins: [],
